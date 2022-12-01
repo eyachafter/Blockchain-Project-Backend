@@ -1,14 +1,19 @@
-requestAnimationFrame('@nomiclabs/hardhat-waffle')
+const main = async () => {
+  const contractFactory = await ethers.getContractFactory("BackendContract");
+  const contract = await contractFactory.deploy();
+  await contract.deployed();
 
-module.exports = {
-  solidity: '0.8.2',
-  networks: {
-    rinkeby: {
-      url:'https://eth-mainnet.g.alchemy.com/v2/bOgrIT_X8Dax1yvTrM_EzwO1HftX9R0I',
-      accounts: [
+  console.log("The address of your contract: ", contract.address);
+};
 
-      ],
-    },
+const Deploy = async () => {
+  try {
+    await main();
+    process.exit(0);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
 
-  },
-}
+Deploy();
